@@ -1,0 +1,41 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: action
+name: "octopus deploy"
+inputs:
+  url: 
+    description: 'octopus url'
+    required: true
+  token:
+    description: 'octopus token'
+    required: true
+  space-name:
+    description: 'octopus space name'
+    required: true
+  release:
+    description: 'octopus release version'
+    required: true
+  environment-name:
+    description: 'octopus environment name'
+    required: true
+  channel-name:
+    description: 'octopus channel name'
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - id: invoke-octopus-deploy
+      name: invoke-octopus-deploy
+      uses: docker://registry.saas-dev.beescloud.com/staging/octopus-actions:main-ae46ee7f3af3d9077c8ea47c659486be04f20ffd
+      shell: sh
+      env:
+        CONFIG_JSON: '{"metaInfo":{"url":"${{inputs.url}}","toolType":"Deploy","username":"","password":"${{inputs.token}}","reponame":"","namespace":"","jobName":"","parameters":{"SpaceName":"${{inputs.space-name}}","ChannelName":"${{inputs.channel-name}}","Release":"${{inputs.release}}","EnvironmentName":"${{inputs.environment-name}}"}}}'
+        RUN_ID: ${{ cloudbees.run_id }}
+        JOB_ID: ${{ job.id }}
+        STEP_ID: ${{step.internal.id}}
+        DNS_URL: ${{ cloudbees.api.url }}
+        JWT_TOKEN: ${{ cloudbees.api.token }}
+      run: |
+        set -x
+        cd /app
+        ./octopus_actions_app invoke -d $CONFIG_JSON

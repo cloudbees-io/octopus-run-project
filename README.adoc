@@ -1,0 +1,73 @@
+= CloudBees action: Deploy with Octopus
+
+Use this action to deliver your software with Octopus Deploy, a deployment automation tool.
+
+== Inputs
+
+[cols="2a,1a,1a,3a",options="header"]
+.Input details
+|===
+
+| Input name
+| Data type
+| Required?
+| Description
+
+| `url`
+| String
+| Yes
+| The Octopus Deploy server URL.
+
+| `token`
+| String
+| Yes
+| The Octopus Deploy token.
+
+| `space-name`
+| String
+| Yes
+| The Octopus Deploy space name.
+
+| `release`
+| String
+| Yes
+| The Octopus Deploy release version.
+
+| `environment-name`
+| String
+| Yes
+| The Octopus Deploy environment name.
+
+| `channel-name`
+| String
+| No
+| The Octopus Deploy channel name.
+
+|===
+
+== Usage example
+
+In your YAML file, add:
+
+[source,yaml]
+----
+      - name: Run Octopus Deploy
+        uses: cloudbees-io/octopus-run-project@v2
+        with:
+          url: https://example.octopus.app
+          token: ${{ secrets.OCTOPUS_TOKEN }}
+          space-name: Default
+          release: 1.0.0
+          environment-name: Stage
+          channel-name: Default
+----
+
+== License
+
+This code is made available under the 
+link:https://opensource.org/license/mit/[MIT license].
+
+== References
+
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform-actions/latest/[using actions in CloudBees workflows].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
