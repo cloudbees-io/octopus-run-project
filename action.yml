@@ -26,7 +26,7 @@ runs:
   steps:
     - id: invoke-octopus-deploy
       name: invoke-octopus-deploy
-      uses: docker://registry.saas-dev.beescloud.com/staging/octopus-actions:main-ae46ee7f3af3d9077c8ea47c659486be04f20ffd
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/octopus-actions:main-ae46ee7f3af3d9077c8ea47c659486be04f20ffd
       shell: sh
       env:
         CONFIG_JSON: '{"metaInfo":{"url":"${{inputs.url}}","toolType":"Deploy","username":"","password":"${{inputs.token}}","reponame":"","namespace":"","jobName":"","parameters":{"SpaceName":"${{inputs.space-name}}","ChannelName":"${{inputs.channel-name}}","Release":"${{inputs.release}}","EnvironmentName":"${{inputs.environment-name}}"}}}'
