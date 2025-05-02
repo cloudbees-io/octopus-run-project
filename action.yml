@@ -26,7 +26,7 @@ runs:
   steps:
     - id: invoke-octopus-deploy
       name: invoke-octopus-deploy
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/octopus-actions:main-72d6c1bba3d80c5c42d1d3f2a9d574782f50c2a0
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/octopus-actions:main-a2aefd83ede50eeec21171ea4ec571511c97cf8f
       shell: sh
       env:
         CONFIG_JSON: '{"metaInfo":{"url":"${{inputs.url}}","toolType":"Deploy","username":"","password":"${{inputs.token}}","reponame":"","namespace":"","jobName":"","parameters":{"SpaceName":"${{inputs.space-name}}","ChannelName":"${{inputs.channel-name}}","Release":"${{inputs.release}}","EnvironmentName":"${{inputs.environment-name}}"}}}'
